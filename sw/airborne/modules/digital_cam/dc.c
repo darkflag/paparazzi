@@ -63,8 +63,6 @@ float dc_gps_next_dist = 0;
 float dc_gps_x = 0;
 float dc_gps_y = 0;
 
-bool_t dc_probing = FALSE;
-
 uint8_t dc_autoshoot_distance_interval;
 uint8_t dc_autoshoot_quartersec_period;
 
@@ -160,7 +158,6 @@ uint8_t dc_circle(float interval, float start) {
   //dc_circle_last_block = floorf(dc_circle_start_angle/dc_circle_interval);
   dc_circle_last_block = 0;
   dc_circle_max_blocks = floorf(360./dc_circle_interval);
-  dc_probing = TRUE;
   dc_info();
   return 0;
 }
@@ -239,12 +236,6 @@ void dc_periodic_4Hz(void)
           course += 360.;
         float current_block = floorf(course/dc_circle_interval);
 
-        if (dc_probing) {
-          if (current_block == dc_circle_last_block) {
-            dc_probing = FALSE;
-          }
-        }
-
         if (dim_mod(current_block, dc_circle_last_block, dc_circle_max_blocks) == 1) {
           dc_gps_count++;
           dc_circle_last_block = current_block;
@@ -257,12 +248,6 @@ void dc_periodic_4Hz(void)
       {
         float dist_x = dc_gps_x - stateGetPositionEnu_f()->x;
         float dist_y = dc_gps_y - stateGetPositionEnu_f()->y;
-
-        if (dc_probing) {
-          if (dist_x*dist_x + dist_y*dist_y < dc_gps_dist*dc_gps_dist) {
-            dc_probing = FALSE;
-          }
-        }
 
         if (dist_x*dist_x + dist_y*dist_y >= dc_gps_next_dist*dc_gps_next_dist) {
           dc_gps_next_dist += dc_gps_dist;

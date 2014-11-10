@@ -66,8 +66,6 @@ extern float dc_gps_x, dc_gps_y;
 
 extern float dc_circle_last_block;
 
-extern bool_t dc_probing;
-
 extern uint8_t dc_buffer_timer;
 
 /** camera angle */
