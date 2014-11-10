@@ -116,8 +116,8 @@ extern dc_autoshoot_type dc_autoshoot;
 /** AutoShoot photos every X quarter_second */
 extern uint8_t dc_autoshoot_quartersec_period;
 
-/** AutoShoot photos on a X meter Local Tangent Plane Grid */
-extern uint8_t dc_autoshoot_meter_grid;
+/** AutoShoot photos on distance to last shot in meters */
+extern uint8_t dc_autoshoot_distance_interval;
 
 /* Send Down the coordinates of where the photo was taken */
 #ifdef SENSOR_SYNC_SEND
