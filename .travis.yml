@@ -12,7 +12,6 @@ before_script: cd conf && ln -s conf_tests.xml conf.xml && cd ..
 script:
   - make
   - PAPARAZZI_SRC=$PWD PAPARAZZI_HOME=$PWD J=AUTO prove tests/examples/
-  - zip -r build.zip ./var
 
 notifications:
   webhooks:
@@ -22,13 +21,3 @@ notifications:
     on_failure: always  # options: [always|never|change] default: always
     on_start: false     # default: false
 
-before_deploy: "echo 'deploy to github'"
-deploy:
-  provider: releases
-  api-key: "dc514f6c3fe84079ddc744d9e1f08ecafc246535"
-  file: "./build.zip"
-  skip_cleanup: true
-  on:
-    tags: true
-    all_branches: true
-after_deploy: "echo 'rba7ti !'"
